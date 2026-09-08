@@ -1,0 +1,16 @@
+name: Build Momentum
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build firmware
+        run: ./fbt firmware_all
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: momentum-build
+          path: build/f7-firmware-D/*.dfu
